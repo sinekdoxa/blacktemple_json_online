@@ -1,3 +1,4 @@
+
 # Blacktemple_json_online
 
 Одностраничная реализация извлечения VLESS ключей из сабки сервиса Blacktemple. 
@@ -6,7 +7,7 @@
 
 Спасибо ChatGPT за вайбкод, ничего за ним не редачил, минимально просил доработать, как есть, так и публикую.
 
-Локальная реализация Python скрипта в репозитории: (плейсхолдер)
+Локальная реализация Python скрипта в репозитории: [https://github.com/sinekdoxa/blacktemple_json/](https://github.com/sinekdoxa/blacktemple_json/)
 
 Ссылка на страницу, пользуйтесь на здоровье: [https://sinekdoxa.github.io/blacktemple_json_online/](https://sinekdoxa.github.io/blacktemple_json_online/)
 
