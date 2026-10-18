@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src https:; img-src 'self' blob:; base-uri 'none'; form-action 'none'; object-src 'none'">
+  <title>Подписка → Xray</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="vendor/qrcode.js" defer></script>
+  <script src="core.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+<header><span class="badge">CLIENT-SIDE · БЕЗ ПРОКСИ</span><h1>Ваша подписка.<br>Ваши конфигурации.</h1>
+  <p>Получение серверов, экспорт Xray и QR-коды — прямо в вашем браузере.</p></header>
+<main>
+  <section class="panel" aria-labelledby="source-title">
+    <h2 id="source-title">Получить подписку</h2>
+    <p>Ссылка отправляется только указанному серверу подписки. GitHub раздаёт файлы страницы, но не обрабатывает введённую ссылку. Аналитики, CDN и сторонних QR-сервисов здесь нет.</p>
+    <form id="fetch-form" autocomplete="off">
+      <label for="url">HTTPS-ссылка подписки</label>
+      <input id="url" type="password" placeholder="https://example.com/sub/…" autocomplete="off" spellcheck="false" required>
+      <div class="actions"><button type="submit" id="fetch">Получить конфигурации</button><button type="button" class="secondary" id="cancel" hidden>Отменить</button></div>
+    </form>
+    <p class="notice">Браузеру необходимо разрешение CORS от сервера подписки. Без него прямой запрос с GitHub Pages невозможен. Прокси не используется. Идентификатор устройства сохраняется локально; очистка данных сайта может создать новый HWID и занять слот устройства.</p>
+    <details><summary>Открыть ответ из файла / перенести идентификатор</summary>
+      <label for="response-file">Сохранённый ответ: JSON с servers, VLESS-строки или Base64 (до 4 MiB)</label>
+      <input id="response-file" type="file" accept=".json,.bin,.txt">
+      <p>Файл обрабатывается локально. Это исходный ответ подписки, а не уже экспортированный массив Xray.</p>
+      <div class="actions"><button id="export-identity" type="button" class="secondary">Скачать идентификатор</button></div>
+      <label for="identity-file">Использовать существующий identity.json из Python-скрипта или другой установки</label>
+      <input id="identity-file" type="file" accept=".json">
+      <p>Импортируйте идентификатор до первого запроса, если нужно сохранить прежний HWID. Не распространяйте его вместе с сайтом. Идентификатор общий для этого сайта в данном браузере, не для всех устройств.</p>
+    </details>
+  </section>
+  <p id="status" role="status" aria-live="polite">Готово к работе. Введите ссылку или откройте файл.</p>
+  <section id="results" hidden aria-labelledby="result-title">
+    <div class="results-heading"><h2 id="result-title">Конфигурации</h2><div class="actions"><button id="download" type="button">Скачать JSON · Xray</button><button id="clear" type="button" class="secondary">Очистить результаты</button></div></div>
+    <p class="notice">JSON — массив отдельных профилей Xray, не универсальный формат для всех клиентов. Если импорт массива не поддерживается, скачайте один профиль или используйте VLESS / QR. Все профили используют SOCKS 127.0.0.1:10808; не запускайте их одновременно без смены портов.</p>
+    <label for="search">Поиск по названию, стране, классу или адресу</label><input id="search" type="search" placeholder="Найти сервер…" autocomplete="off">
+    <p id="count"></p><div id="cards"></div>
+  </section>
+</main>
+<footer>Ссылка и результаты не сохраняются сайтом. Скачанные файлы и QR содержат секреты доступа — не публикуйте их. Сервер подписки видит запрос и ваш IP. Расширения браузера и код опубликованной страницы должны быть доверенными. Работоспособность VPN не проверяется.</footer>
+</body>
+</html>
